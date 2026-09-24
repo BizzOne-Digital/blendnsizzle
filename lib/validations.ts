@@ -26,6 +26,28 @@ export const menuCategorySchema = z.object({
   active: z.boolean().optional(),
 });
 
+const nutritionSchema = z.object({
+  calories: z.number().min(0).optional().nullable(),
+  protein: z.number().min(0).optional().nullable(),
+  carbs: z.number().min(0).optional().nullable(),
+  sugar: z.number().min(0).optional().nullable(),
+  fat: z.number().min(0).optional().nullable(),
+});
+
+type NutritionInput = z.infer<typeof nutritionSchema> | null | undefined;
+
+/**
+ * Drops null/undefined fields and returns undefined when every field is
+ * empty, so menu items without nutrition data don't get a stray empty
+ * `nutrition` subdocument.
+ */
+export function normalizeNutrition(nutrition: NutritionInput) {
+  if (!nutrition) return undefined;
+  const entries = Object.entries(nutrition).filter(([, v]) => v !== null && v !== undefined);
+  if (entries.length === 0) return undefined;
+  return Object.fromEntries(entries) as Record<string, number>;
+}
+
 export const menuItemSchema = z.object({
   name: z.string().trim().min(1).max(160),
   slug: z.string().trim().min(1).max(160).optional(),
@@ -37,6 +59,7 @@ export const menuItemSchema = z.object({
   featured: z.boolean().optional(),
   available: z.boolean().optional(),
   sortOrder: z.number().int().optional(),
+  nutrition: nutritionSchema.optional().nullable(),
 });
 
 export const siteSettingsSchema = z.object({

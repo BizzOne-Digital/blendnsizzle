@@ -11,6 +11,14 @@ import { MENU_TAGS } from "@/lib/menu-tags";
 
 type Category = { _id: string; name: string };
 
+type Nutrition = {
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  sugar?: number;
+  fat?: number;
+};
+
 type MenuItemRow = {
   _id: string;
   name: string;
@@ -22,6 +30,23 @@ type MenuItemRow = {
   tags: string[];
   featured: boolean;
   available: boolean;
+  nutrition?: Nutrition;
+};
+
+const NUTRITION_FIELDS: { key: keyof Nutrition; label: string; unit: string }[] = [
+  { key: "calories", label: "Calories", unit: "kcal" },
+  { key: "protein", label: "Protein", unit: "g" },
+  { key: "carbs", label: "Carbs", unit: "g" },
+  { key: "sugar", label: "Sugar", unit: "g" },
+  { key: "fat", label: "Fat", unit: "g" },
+];
+
+const EMPTY_NUTRITION: Record<keyof Nutrition, string> = {
+  calories: "",
+  protein: "",
+  carbs: "",
+  sugar: "",
+  fat: "",
 };
 
 const EMPTY_FORM = {
@@ -33,6 +58,7 @@ const EMPTY_FORM = {
   tags: [] as string[],
   featured: false,
   available: true,
+  nutrition: { ...EMPTY_NUTRITION },
 };
 
 export default function MenuManager() {
@@ -78,6 +104,11 @@ export default function MenuManager() {
 
   function openEdit(item: MenuItemRow) {
     setEditingId(item._id);
+    const nutrition = { ...EMPTY_NUTRITION };
+    for (const field of NUTRITION_FIELDS) {
+      const value = item.nutrition?.[field.key];
+      if (typeof value === "number") nutrition[field.key] = String(value);
+    }
     setForm({
       name: item.name,
       description: item.description || "",
@@ -87,6 +118,7 @@ export default function MenuManager() {
       tags: item.tags || [],
       featured: item.featured,
       available: item.available,
+      nutrition,
     });
     setFormOpen(true);
   }
@@ -110,9 +142,16 @@ export default function MenuManager() {
 
     setSaving(true);
     try {
+      const nutrition: Nutrition = {};
+      for (const field of NUTRITION_FIELDS) {
+        const raw = form.nutrition[field.key];
+        if (raw.trim() !== "") nutrition[field.key] = Number(raw);
+      }
+
       const payload = {
         ...form,
         price: form.price ? Number(form.price) : undefined,
+        nutrition: Object.keys(nutrition).length > 0 ? nutrition : undefined,
       };
       const res = await fetch(editingId ? `/api/admin/menu/${editingId}` : "/api/admin/menu", {
         method: editingId ? "PUT" : "POST",
@@ -337,6 +376,35 @@ export default function MenuManager() {
                     >
                       {tag}
                     </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-sm font-semibold text-charcoal">
+                  Nutrition Info <span className="font-normal text-charcoal/40">(optional, per serving)</span>
+                </label>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+                  {NUTRITION_FIELDS.map((field) => (
+                    <div key={field.key}>
+                      <label className="mb-1 block text-xs font-medium text-charcoal/60">
+                        {field.label} ({field.unit})
+                      </label>
+                      <input
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        value={form.nutrition[field.key]}
+                        onChange={(e) =>
+                          setForm({
+                            ...form,
+                            nutrition: { ...form.nutrition, [field.key]: e.target.value },
+                          })
+                        }
+                        className="focus-ring w-full rounded-xl border border-beige px-3 py-2 text-sm"
+                        placeholder="0"
+                      />
+                    </div>
                   ))}
                 </div>
               </div>

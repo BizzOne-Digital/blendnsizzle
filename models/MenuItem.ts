@@ -4,6 +4,14 @@ import { MENU_TAGS, type MenuTag } from "@/lib/menu-tags";
 export { MENU_TAGS };
 export type { MenuTag };
 
+export interface IMenuItemNutrition {
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  sugar?: number;
+  fat?: number;
+}
+
 export interface IMenuItem {
   _id: string;
   name: string;
@@ -16,9 +24,21 @@ export interface IMenuItem {
   featured: boolean;
   available: boolean;
   sortOrder: number;
+  nutrition?: IMenuItemNutrition;
   createdAt: Date;
   updatedAt: Date;
 }
+
+const NutritionSchema = new Schema<IMenuItemNutrition>(
+  {
+    calories: { type: Number, min: 0 },
+    protein: { type: Number, min: 0 },
+    carbs: { type: Number, min: 0 },
+    sugar: { type: Number, min: 0 },
+    fat: { type: Number, min: 0 },
+  },
+  { _id: false }
+);
 
 const MenuItemSchema = new Schema<IMenuItem>(
   {
@@ -32,6 +52,7 @@ const MenuItemSchema = new Schema<IMenuItem>(
     featured: { type: Boolean, default: false },
     available: { type: Boolean, default: true },
     sortOrder: { type: Number, default: 0 },
+    nutrition: { type: NutritionSchema, default: undefined },
   },
   { timestamps: true }
 );

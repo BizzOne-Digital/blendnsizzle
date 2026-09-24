@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import MenuItem from "@/models/MenuItem";
 import { requireAdmin } from "@/lib/auth";
-import { menuItemSchema, slugify } from "@/lib/validations";
+import { menuItemSchema, normalizeNutrition, slugify } from "@/lib/validations";
 import { deleteStoredUploadByUrl } from "@/lib/uploads";
 
 export const runtime = "nodejs";
@@ -24,6 +24,9 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
   const previousImage = item.image;
   const updates: Record<string, unknown> = { ...parsed.data };
+  if ("nutrition" in parsed.data) {
+    updates.nutrition = normalizeNutrition(parsed.data.nutrition);
+  }
   if (parsed.data.name && !parsed.data.slug) {
     updates.slug = slugify(parsed.data.name);
   } else if (parsed.data.slug) {

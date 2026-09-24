@@ -1,0 +1,54 @@
+1. Latte
+2. Cappuccino
+3. Americano
+4. Flat White
+5. French Vanila
+6. Hot Shardaai
+7. Hot Chocolate
+8. Matcha Latte
+9. Matcha with Espresso
+10. Vanila Matcha
+11. Matcha Cremazzo
+12. Strawberry Matcha Latte
+13. Matcha with Strawberry Foam
+14. Chilled Coffee
+15. Flavoured Coffee
+16. Frozzino
+17. Flavoured Frozzino
+18. Flavoured Cremazzo
+19. Chilled Latte
+20. Flavoured Latte
+21. Chick Pea
+22. Kidney Beans
+23. Tandoori Paneer Wrap
+24. Egg & Avocado Wrap
+25. Super Power Bowl
+26. Potato Sandwich
+27. Avocado Veggie Sandwich
+28. Egg Avocado & Cheese Sandwich
+29. Tandoori Paneer Sandwich
+30. Besan Veggie Chilla
+31. Moong Dal Veggie Chilla
+32. Loaded Chilla
+33. Broccoli Soup
+34. Mix Veg Soup
+35. Chana Soup
+36. Boiled Eggs 2pcs
+37. Boiled Eggs 3pcs
+38. Classic Bread Omelette
+39. Veggies Bread Omelette
+40. Veggies Egg Omelette
+41. Golden Corn
+42. Makhana Magic
+43. Sweet Potato Chaat
+44. Mix Fruit Smoothie
+45. Golden Blend
+46. Fresh Fruit Juice
+47. Milk Soda
+48. Classic Overnight Oats
+49. Fresh Fruits & Nuts Overnight Oats
+50. Yogurt & Fruit Parfait
+51. Strawberry Sizzle Refresher
+52. Mango Sizzle Refresher
+53. Mango Dragon Fruit Sizzle Refresher
+54. Red Bull Energizer

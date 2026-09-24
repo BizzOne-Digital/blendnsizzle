@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 import { getSafeImageUrl } from "@/lib/uploads";
 import type { IMenuItem } from "@/models/MenuItem";
 
@@ -11,9 +12,21 @@ const TAG_STYLES: Record<string, string> = {
   "Gluten Conscious": "bg-beige text-espresso",
 };
 
+const NUTRITION_FIELDS: { key: "calories" | "protein" | "carbs" | "sugar" | "fat"; label: string; unit: string }[] = [
+  { key: "calories", label: "Calories", unit: "kcal" },
+  { key: "protein", label: "Protein", unit: "g" },
+  { key: "carbs", label: "Carbs", unit: "g" },
+  { key: "sugar", label: "Sugar", unit: "g" },
+  { key: "fat", label: "Fat", unit: "g" },
+];
+
 type PlainMenuItem = Omit<IMenuItem, "category"> & { category: string };
 
 export default function MenuItemCard({ item }: { item: PlainMenuItem }) {
+  const nutritionEntries = NUTRITION_FIELDS.filter(
+    (field) => typeof item.nutrition?.[field.key] === "number"
+  );
+
   return (
     <div className="group relative overflow-hidden rounded-3xl border border-beige bg-white shadow-sm transition-shadow hover:shadow-lg">
       {item.featured && (
@@ -58,6 +71,27 @@ export default function MenuItemCard({ item }: { item: PlainMenuItem }) {
               </span>
             ))}
           </div>
+        )}
+        {nutritionEntries.length > 0 && (
+          <details className="group/details mt-4 border-t border-beige pt-3">
+            <summary className="focus-ring flex cursor-pointer list-none items-center justify-between text-xs font-semibold text-charcoal/60 hover:text-orange-deep">
+              Nutrition Info
+              <ChevronDown size={14} className="transition-transform group-open/details:rotate-180" />
+            </summary>
+            <dl className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-5">
+              {nutritionEntries.map((field) => (
+                <div key={field.key} className="text-center">
+                  <dt className="text-[0.65rem] font-medium uppercase tracking-wide text-charcoal/45">
+                    {field.label}
+                  </dt>
+                  <dd className="mt-0.5 text-sm font-bold text-charcoal">
+                    {item.nutrition?.[field.key]}
+                    <span className="ml-0.5 text-[0.65rem] font-normal text-charcoal/45">{field.unit}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </details>
         )}
       </div>
     </div>

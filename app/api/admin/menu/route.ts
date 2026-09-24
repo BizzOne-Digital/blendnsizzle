@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import MenuItem from "@/models/MenuItem";
 import { requireAdmin } from "@/lib/auth";
-import { menuItemSchema, slugify } from "@/lib/validations";
+import { menuItemSchema, normalizeNutrition, slugify } from "@/lib/validations";
 
 export const runtime = "nodejs";
 
@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
   const item = await MenuItem.create({
     ...parsed.data,
     price: parsed.data.price ?? undefined,
+    nutrition: normalizeNutrition(parsed.data.nutrition),
     slug,
     sortOrder: parsed.data.sortOrder ?? count,
   });
