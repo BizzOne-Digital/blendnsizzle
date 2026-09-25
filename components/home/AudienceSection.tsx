@@ -4,7 +4,7 @@ const AUDIENCES = [
   {
     icon: Dumbbell,
     title: "For Gym Enthusiasts",
-    description: "High-protein and goal-friendly options.",
+    description: "5–50g of protein in every drink, plus goal-friendly options.",
   },
   {
     icon: HeartPulse,

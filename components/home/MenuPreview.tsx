@@ -3,16 +3,17 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { connectDB } from "@/lib/mongodb";
 import MenuCategory from "@/models/MenuCategory";
+import MenuItem from "@/models/MenuItem";
 import { getSafeImageUrl } from "@/lib/uploads";
 
 const FALLBACK_IMAGES = ["/pro1.png", "/pro2.png", "/pro3.png", "/pro4.png", "/pro5.png"];
 
 const DEMO_CATEGORIES = [
-  { _id: "demo-1", name: "Coffee & Espresso Drinks", slug: "coffee-espresso" },
-  { _id: "demo-2", name: "Protein Shakes & Smoothies", slug: "protein-shakes-smoothies" },
-  { _id: "demo-3", name: "Healthy Meals & Bowls", slug: "healthy-meals-bowls" },
-  { _id: "demo-4", name: "Wraps & Sandwiches", slug: "wraps-sandwiches" },
-  { _id: "demo-5", name: "Snacks & Treats", slug: "snacks-treats" },
+  { _id: "demo-1", name: "Coffee & Espresso Drinks", slug: "coffee-espresso", image: "" },
+  { _id: "demo-2", name: "Protein Shakes & Smoothies", slug: "protein-shakes-smoothies", image: "" },
+  { _id: "demo-3", name: "Healthy Meals & Bowls", slug: "healthy-meals-bowls", image: "" },
+  { _id: "demo-4", name: "Wraps & Sandwiches", slug: "wraps-sandwiches", image: "" },
+  { _id: "demo-5", name: "Snacks & Treats", slug: "snacks-treats", image: "" },
 ];
 
 async function getCategories() {
@@ -20,10 +21,34 @@ async function getCategories() {
     await connectDB();
     const categories = await MenuCategory.find({ active: true })
       .sort({ sortOrder: 1 })
-      .limit(5)
+      .limit(6)
       .lean();
+
     if (categories.length > 0) {
-      return { items: categories, isDemo: false };
+      // Pull each category's thumbnail from one of its own real menu items
+      // (rather than a generic index-based stock photo) so, e.g., "Sandwiches"
+      // never ends up showing a bowl or a bakery item's photo.
+      const categoryIds = categories.map((c) => c._id);
+      const itemsWithImages = await MenuItem.find({
+        category: { $in: categoryIds },
+        image: { $nin: ["", null] },
+      })
+        .sort({ sortOrder: 1 })
+        .select("category image")
+        .lean();
+
+      const imageByCategory = new Map<string, string>();
+      for (const item of itemsWithImages) {
+        const key = item.category.toString();
+        if (!imageByCategory.has(key)) imageByCategory.set(key, item.image as string);
+      }
+
+      const enriched = categories.map((category) => ({
+        ...category,
+        image: category.image || imageByCategory.get(category._id.toString()) || "",
+      }));
+
+      return { items: enriched, isDemo: false };
     }
   } catch {
     // fall through to demo content
@@ -58,8 +83,8 @@ export default async function MenuPreview() {
             <div className="relative aspect-[4/3] w-full overflow-hidden">
               <Image
                 src={
-                  "image" in category && category.image
-                    ? getSafeImageUrl(category.image as string)
+                  category.image
+                    ? getSafeImageUrl(category.image)
                     : FALLBACK_IMAGES[i % FALLBACK_IMAGES.length]
                 }
                 alt={category.name}

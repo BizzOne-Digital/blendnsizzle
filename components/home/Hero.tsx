@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Leaf, Target, Sparkles, Droplet } from "lucide-react";
+import { Leaf, Dumbbell, Sparkles, Droplet } from "lucide-react";
 import type { ISiteSettings } from "@/models/SiteSettings";
 import type { HomeContent } from "@/lib/page-content";
 
 const BENEFITS = [
   { label: "Better Ingredients", icon: Leaf },
-  { label: "Goal Friendly", icon: Target },
+  { label: "5–50g Protein", icon: Dumbbell },
   { label: "Great Taste", icon: Sparkles },
   { label: "Lower Sugar Options", icon: Droplet },
 ];
@@ -35,9 +35,15 @@ export default function Hero({ settings, content }: { settings: ISiteSettings; c
 
       <div className="relative mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8 lg:py-36">
         <div className="max-w-xl animate-fade-up">
-          <span className="inline-flex items-center rounded-full bg-green/15 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-green">
-            {content.heroEyebrow}
-          </span>
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center rounded-full bg-green/15 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-green">
+              {content.heroEyebrow}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-orange px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white shadow-sm">
+              <Dumbbell size={14} strokeWidth={2.5} aria-hidden="true" />
+              5–50g Protein in Every Drink
+            </span>
+          </div>
 
           <h1 className="mt-6 font-heading text-4xl font-extrabold leading-[1.08] tracking-tight text-cream sm:text-5xl lg:text-6xl">
             Made for Cravings.

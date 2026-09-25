@@ -27,51 +27,56 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-beige/80 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/80">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between overflow-visible px-5 lg:px-8">
-        <Link href="/" className="flex shrink-0 items-center" aria-label="Blend N Sizzle home">
-          <Image
-            src={settings.logoUrl ? getSafeImageUrl(settings.logoUrl) : "/logo.png"}
-            alt="Blend N Sizzle"
-            width={200}
-            height={67}
-            priority
-            className="h-16 w-auto object-contain sm:h-[4.75rem]"
-          />
-        </Link>
+    <>
+      <header className="sticky top-0 z-50 border-b border-beige/80 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/80">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between overflow-visible px-5 lg:px-8">
+          <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Blend N Sizzle home">
+            <Image
+              src={settings.logoUrl ? getSafeImageUrl(settings.logoUrl) : "/logo.png"}
+              alt="Blend N Sizzle logo"
+              width={140}
+              height={140}
+              priority
+              className="h-14 w-14 object-contain sm:h-16 sm:w-16"
+            />
+            <span className="font-heading text-lg font-bold leading-tight tracking-tight text-charcoal sm:text-xl">
+              Blend N Sizzle
+            </span>
+          </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="focus-ring rounded font-medium text-charcoal/80 transition-colors hover:text-orange-deep"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="focus-ring rounded font-medium text-charcoal/80 transition-colors hover:text-orange-deep"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
 
-        <div className="hidden lg:block">
-          <OrderNowMenu settings={settings} />
+          <div className="hidden lg:block">
+            <OrderNowMenu settings={settings} />
+          </div>
+
+          <button
+            type="button"
+            className="focus-ring flex h-11 w-11 items-center justify-center rounded-full text-charcoal lg:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav-drawer"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
         </div>
-
-        <button
-          type="button"
-          className="focus-ring flex h-11 w-11 items-center justify-center rounded-full text-charcoal lg:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-nav-drawer"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
-      </div>
+      </header>
 
       {open && (
         <div
           id="mobile-nav-drawer"
-          className="fixed inset-0 top-20 z-40 bg-ivory lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-20 z-40 overflow-y-auto bg-ivory lg:hidden"
           role="dialog"
           aria-modal="true"
         >
@@ -81,7 +86,7 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="focus-ring rounded-lg px-3 py-4 text-lg font-semibold text-charcoal border-b border-beige"
+                className="focus-ring rounded-lg border-b border-beige px-3 py-4 text-lg font-semibold text-charcoal"
               >
                 {link.label}
               </Link>
@@ -92,6 +97,6 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }

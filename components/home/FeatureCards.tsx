@@ -19,7 +19,7 @@ const CARDS = [
   {
     icon: Trophy,
     title: "Fuel Your Goals",
-    description: "Perfect for coffee lovers, gym enthusiasts and healthy living.",
+    description: "5–50g of protein per drink — perfect for gym enthusiasts and healthy living.",
   },
 ];
 
