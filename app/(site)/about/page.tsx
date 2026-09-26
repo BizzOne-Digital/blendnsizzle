@@ -48,7 +48,7 @@ export default async function AboutPage() {
             About Blend N Sizzle
           </span>
           <h1 className="mt-4 font-heading text-4xl font-extrabold leading-tight text-charcoal sm:text-5xl">
-            More Than a Café.
+            More Than a Food Truck.
             <br />
             It&apos;s a <span className="font-accent italic text-green-deep">Lifestyle.</span>
           </h1>
@@ -59,7 +59,7 @@ export default async function AboutPage() {
         <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] shadow-md">
           <Image
             src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80"
-            alt="Fresh, healthy ingredients prepared at a café"
+            alt="Fresh, healthy ingredients prepared at Blend N Sizzle"
             fill
             sizes="(min-width: 1024px) 540px, 90vw"
             className="object-cover"

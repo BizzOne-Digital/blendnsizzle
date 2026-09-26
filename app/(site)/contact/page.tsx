@@ -6,7 +6,7 @@ import ContactForm from "@/components/ContactForm";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Blend N Sizzle in Belleville, Ontario. Send us a message about our upcoming café opening, menu or partnership inquiries.",
+    "Get in touch with Blend N Sizzle in Belleville, Ontario. Send us a message about our upcoming food truck launch, menu or partnership inquiries.",
 };
 
 export default async function ContactPage() {

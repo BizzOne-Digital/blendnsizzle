@@ -53,7 +53,7 @@ export default function LocationSection({ settings }: { settings: ISiteSettings 
             <div className="relative aspect-[4/3] w-full lg:aspect-auto">
               <Image
                 src="/findus.png"
-                alt="Blend N Sizzle café storefront in Belleville"
+                alt="Blend N Sizzle food truck in Belleville"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"

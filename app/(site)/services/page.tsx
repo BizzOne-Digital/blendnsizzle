@@ -26,7 +26,7 @@ const SERVICES = [
   {
     icon: Coffee,
     title: "Specialty Coffee & Espresso",
-    description: "Rich, café-quality espresso drinks crafted for coffee lovers.",
+    description: "Rich, coffeehouse-quality espresso drinks crafted for coffee lovers.",
     image:
       "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
   },

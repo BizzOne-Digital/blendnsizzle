@@ -39,7 +39,7 @@ export default function AboutPreview({ content }: { content: HomeContent }) {
             <div className="relative flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-12 lg:py-14">
               <span className="text-xs font-bold uppercase tracking-widest text-orange-deep">About Us</span>
               <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-charcoal sm:text-4xl">
-                More Than a Café
+                More Than a Food Truck
                 <br />
                 It&apos;s a <span className="text-orange">Lifestyle</span>
               </h2>
