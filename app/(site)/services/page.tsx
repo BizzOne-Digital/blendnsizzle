@@ -92,10 +92,7 @@ export default async function ServicesPage() {
     <>
       <section className="bg-cream/60 py-16 sm:py-24">
         <div className="mx-auto max-w-4xl px-5 text-center lg:px-8">
-          <span className="text-xs font-bold uppercase tracking-widest text-orange-deep">
-            What We Offer
-          </span>
-          <h1 className="mt-4 font-heading text-4xl font-extrabold leading-tight text-charcoal sm:text-5xl">
+          <h1 className="font-heading text-4xl font-extrabold leading-tight text-charcoal sm:text-5xl">
             Services Built for Cravings and Goals
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-charcoal/70">

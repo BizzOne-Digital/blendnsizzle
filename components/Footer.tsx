@@ -34,7 +34,7 @@ const QUICK_LINKS = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Menu", href: "/pricing" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -52,13 +52,22 @@ export default function Footer({ settings }: { settings: ISiteSettings }) {
       <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Image
-              src={settings.logoUrl ? getSafeImageUrl(settings.logoUrl) : "/logo.png"}
-              alt="Blend N Sizzle"
-              width={180}
-              height={60}
-              className="h-10 w-auto object-contain"
-            />
+            <div className="flex items-center gap-2.5">
+              <Image
+                src={settings.logoUrl ? getSafeImageUrl(settings.logoUrl) : "/logo.png"}
+                alt="Blend N Sizzle"
+                width={140}
+                height={140}
+                className="h-12 w-12 object-contain"
+              />
+              <Image
+                src="/logo2.png"
+                alt="Blend N Sizzle"
+                width={1666}
+                height={340}
+                className="h-6 w-auto object-contain"
+              />
+            </div>
             <p className="mt-3 max-w-xs text-sm text-cream/70">{settings.tagline}</p>
           </div>
 
