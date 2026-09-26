@@ -52,10 +52,35 @@ export default async function PricingPage() {
           <p className="mx-auto mt-5 max-w-2xl text-charcoal/70">
             Fuel your cravings without losing sight of your goals.
           </p>
+
+          {hasAnyItems && (
+            <div className="mx-auto mt-8 inline-flex flex-wrap items-center justify-center gap-x-5 gap-y-2 rounded-full border border-beige bg-white px-6 py-3 text-xs font-semibold text-charcoal/70">
+              <span>
+                <span className="text-orange-deep">Sip</span> = 12oz
+              </span>
+              <span className="text-beige">·</span>
+              <span>
+                <span className="text-orange-deep">Pour</span> = 16oz
+              </span>
+              <span className="text-beige">·</span>
+              <span>
+                <span className="text-orange-deep">House</span> = 20oz
+              </span>
+              <span className="text-beige">·</span>
+              <span>
+                <span className="text-orange-deep">Big House</span> = 24oz
+              </span>
+            </div>
+          )}
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+        {hasAnyItems && (
+          <p className="mx-auto mb-10 max-w-2xl text-center text-xs text-charcoal/45">
+            Images are for illustration purposes only — actual product may differ.
+          </p>
+        )}
         {!hasAnyItems ? (
           <div className="mx-auto max-w-lg rounded-3xl border border-dashed border-beige bg-cream/40 p-12 text-center">
             <p className="font-heading text-xl font-bold text-charcoal">

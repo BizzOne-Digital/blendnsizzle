@@ -30,14 +30,14 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
     <>
       <header className="sticky top-0 z-50 border-b border-beige/80 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/80">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between overflow-visible px-5 lg:px-8">
-          <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Blend N Sizzle home">
+          <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2" aria-label="Blend N Sizzle home">
             <Image
               src={settings.logoUrl ? getSafeImageUrl(settings.logoUrl) : "/logo.png"}
               alt="Blend N Sizzle"
               width={140}
               height={140}
               priority
-              className="h-14 w-14 object-contain sm:h-16 sm:w-16"
+              className="h-11 w-11 shrink-0 object-contain sm:h-16 sm:w-16"
             />
             <Image
               src="/logo2.png"
@@ -45,7 +45,7 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
               width={1666}
               height={340}
               priority
-              className="hidden h-6 w-auto object-contain sm:block"
+              className="h-4 w-auto min-w-0 object-contain sm:h-6"
             />
           </Link>
 
