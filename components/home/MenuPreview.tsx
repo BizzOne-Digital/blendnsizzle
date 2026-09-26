@@ -6,17 +6,26 @@ import MenuCategory from "@/models/MenuCategory";
 import MenuItem from "@/models/MenuItem";
 import { getSafeImageUrl } from "@/lib/uploads";
 
-const FALLBACK_IMAGES = ["/pro1.png", "/pro2.png", "/pro3.png", "/pro4.png", "/pro5.png"];
+// Curated local photos for the first 5 categories (by sortOrder), replaceable
+// on disk without touching the DB.
+const CURATED_IMAGES = ["/pro1.png", "/pro2.png", "/pro3.png", "/pro4.png", "/pro5.png"];
 
 const DEMO_CATEGORIES = [
-  { _id: "demo-1", name: "Coffee & Espresso Drinks", slug: "coffee-espresso", image: "" },
-  { _id: "demo-2", name: "Protein Shakes & Smoothies", slug: "protein-shakes-smoothies", image: "" },
-  { _id: "demo-3", name: "Healthy Meals & Bowls", slug: "healthy-meals-bowls", image: "" },
-  { _id: "demo-4", name: "Wraps & Sandwiches", slug: "wraps-sandwiches", image: "" },
-  { _id: "demo-5", name: "Snacks & Treats", slug: "snacks-treats", image: "" },
+  { _id: "demo-1", name: "Coffee & Espresso Drinks", slug: "coffee-espresso" },
+  { _id: "demo-2", name: "Protein Shakes & Smoothies", slug: "protein-shakes-smoothies" },
+  { _id: "demo-3", name: "Healthy Meals & Bowls", slug: "healthy-meals-bowls" },
+  { _id: "demo-4", name: "Wraps & Sandwiches", slug: "wraps-sandwiches" },
+  { _id: "demo-5", name: "Snacks & Treats", slug: "snacks-treats" },
 ];
 
-async function getCategories() {
+type CategoryCard = {
+  _id: string;
+  name: string;
+  slug: string;
+  imageSrc: string;
+};
+
+async function getCategories(): Promise<{ items: CategoryCard[]; isDemo: boolean }> {
   try {
     await connectDB();
     const categories = await MenuCategory.find({ active: true })
@@ -25,9 +34,12 @@ async function getCategories() {
       .lean();
 
     if (categories.length > 0) {
-      // Pull each category's thumbnail from one of its own real menu items
-      // (rather than a generic index-based stock photo) so, e.g., "Sandwiches"
-      // never ends up showing a bowl or a bakery item's photo.
+      // Thumbnail priority per category:
+      // 1. category.image set explicitly by the admin (uploaded via /admin)
+      // 2. the curated /pro1-5.png (first 5 categories only)
+      // 3. one of the category's own real menu item photos — covers every
+      //    category beyond the curated 5 (e.g. "Chillas") so nothing falls
+      //    back to a generic/mismatched stock photo.
       const categoryIds = categories.map((c) => c._id);
       const itemsWithImages = await MenuItem.find({
         category: { $in: categoryIds },
@@ -43,17 +55,31 @@ async function getCategories() {
         if (!imageByCategory.has(key)) imageByCategory.set(key, item.image as string);
       }
 
-      const enriched = categories.map((category) => ({
-        ...category,
-        image: category.image || imageByCategory.get(category._id.toString()) || "",
-      }));
+      const items: CategoryCard[] = categories.map((category, i) => {
+        const adminImage = category.image ? getSafeImageUrl(category.image) : "";
+        const curated = i < CURATED_IMAGES.length ? CURATED_IMAGES[i] : "";
+        const itemImage = imageByCategory.get(category._id.toString());
 
-      return { items: enriched, isDemo: false };
+        return {
+          _id: category._id.toString(),
+          name: category.name,
+          slug: category.slug,
+          imageSrc:
+            adminImage || curated || (itemImage ? getSafeImageUrl(itemImage) : "") || CURATED_IMAGES[0],
+        };
+      });
+
+      return { items, isDemo: false };
     }
   } catch {
     // fall through to demo content
   }
-  return { items: DEMO_CATEGORIES, isDemo: true };
+
+  const items: CategoryCard[] = DEMO_CATEGORIES.map((category, i) => ({
+    ...category,
+    imageSrc: CURATED_IMAGES[i % CURATED_IMAGES.length],
+  }));
+  return { items, isDemo: true };
 }
 
 export default async function MenuPreview() {
@@ -74,19 +100,15 @@ export default async function MenuPreview() {
       </div>
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((category, i) => (
+        {items.map((category) => (
           <Link
-            key={category._id.toString()}
+            key={category._id}
             href="/pricing"
             className="focus-ring group relative overflow-hidden rounded-3xl shadow-sm"
           >
             <div className="relative aspect-[4/3] w-full overflow-hidden">
               <Image
-                src={
-                  category.image
-                    ? getSafeImageUrl(category.image)
-                    : FALLBACK_IMAGES[i % FALLBACK_IMAGES.length]
-                }
+                src={category.imageSrc}
                 alt={category.name}
                 fill
                 sizes="(min-width: 1024px) 380px, 90vw"
