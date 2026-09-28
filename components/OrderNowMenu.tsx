@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ExternalLink, Phone, MessageCircle } from "lucide-react";
+import { ChevronDown, ExternalLink, Phone, MessageCircle, ShoppingCart } from "lucide-react";
 import type { ISiteSettings } from "@/models/SiteSettings";
 
 function toWhatsAppLink(phone: string): string {
@@ -44,6 +44,7 @@ export default function OrderNowMenu({
         aria-haspopup="menu"
         className={`focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-orange px-6 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-orange-deep ${fullWidth ? "w-full" : ""}`}
       >
+        <ShoppingCart size={17} />
         Order Now
         <ChevronDown size={18} className={`transition-transform ${open ? "rotate-180" : ""}`} />
       </button>

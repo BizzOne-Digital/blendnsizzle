@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import type { ISiteSettings } from "@/models/SiteSettings";
 import OrderNowMenu from "@/components/OrderNowMenu";
@@ -18,6 +19,7 @@ const NAV_LINKS = [
 
 export default function Header({ settings }: { settings: ISiteSettings }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -28,60 +30,71 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-beige/80 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/80">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between overflow-visible px-5 lg:px-8">
-          <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2" aria-label="Blend N Sizzle home">
-            <Image
-              src={settings.logoUrl ? getSafeImageUrl(settings.logoUrl) : "/logo.png"}
-              alt="Blend N Sizzle"
-              width={140}
-              height={140}
-              priority
-              className="h-11 w-11 shrink-0 object-contain sm:h-16 sm:w-16"
-            />
-            <Image
-              src="/logo2.png"
-              alt="Blend N Sizzle"
-              width={1666}
-              height={340}
-              priority
-              className="h-5 w-auto min-w-0 object-contain sm:h-8"
-            />
-          </Link>
+      <div className="sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
+        <header className="mx-auto max-w-7xl overflow-visible rounded-full border border-white/15 bg-charcoal/60 shadow-xl shadow-charcoal/20 backdrop-blur-xl">
+          <div className="flex h-16 items-center justify-between gap-3 px-4 sm:h-20 sm:px-6">
+            <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2" aria-label="Blend N Sizzle home">
+              <Image
+                src={settings.logoUrl ? getSafeImageUrl(settings.logoUrl) : "/logo.png"}
+                alt="Blend N Sizzle"
+                width={140}
+                height={140}
+                priority
+                className="h-10 w-10 shrink-0 object-contain sm:h-14 sm:w-14"
+              />
+              <Image
+                src="/logo2.png"
+                alt="Blend N Sizzle"
+                width={1666}
+                height={340}
+                priority
+                className="h-4 w-auto min-w-0 object-contain sm:h-7"
+              />
+            </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="focus-ring rounded font-medium text-charcoal/80 transition-colors hover:text-orange-deep"
+            <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+              {NAV_LINKS.map((link) => {
+                const active = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`focus-ring rounded pb-0.5 font-medium transition-colors ${
+                      active
+                        ? "border-b-2 border-orange text-cream"
+                        : "border-b-2 border-transparent text-cream/75 hover:text-cream"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="flex shrink-0 items-center gap-2">
+              <div className="hidden lg:block">
+                <OrderNowMenu settings={settings} />
+              </div>
+
+              <button
+                type="button"
+                className="focus-ring flex h-11 w-11 items-center justify-center rounded-full text-cream transition-colors hover:bg-white/10"
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+                aria-controls="mobile-nav-drawer"
+                onClick={() => setOpen((v) => !v)}
               >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="hidden lg:block">
-            <OrderNowMenu settings={settings} />
+                {open ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
-
-          <button
-            type="button"
-            className="focus-ring flex h-11 w-11 items-center justify-center rounded-full text-charcoal lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-nav-drawer"
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        </div>
-      </header>
+        </header>
+      </div>
 
       {open && (
         <div
           id="mobile-nav-drawer"
-          className="fixed inset-x-0 bottom-0 top-20 z-40 overflow-y-auto bg-ivory lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-[76px] z-40 overflow-y-auto bg-ivory sm:top-[96px] lg:hidden"
           role="dialog"
           aria-modal="true"
         >
