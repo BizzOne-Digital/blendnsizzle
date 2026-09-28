@@ -42,7 +42,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-cream/60 py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-cream/60 pb-16 pt-32 sm:pb-24 sm:pt-40">
         <div className="mx-auto max-w-4xl px-5 text-center lg:px-8">
           <span className="text-xs font-bold uppercase tracking-widest text-orange-deep">
             About Blend N Sizzle

@@ -13,7 +13,7 @@ export default async function ContactPage() {
   const settings = await getSiteSettings();
 
   return (
-    <section className="bg-cream/60 py-16 sm:py-24">
+    <section className="bg-cream/60 pb-16 pt-32 sm:pb-24 sm:pt-40">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-bold uppercase tracking-widest text-orange-deep">

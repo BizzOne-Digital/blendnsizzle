@@ -33,7 +33,7 @@ export default function Hero({ settings, content }: { settings: ISiteSettings; c
       <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/55 to-charcoal/20" />
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-5 py-20 sm:py-28 lg:px-8 lg:py-36">
+      <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-32 sm:pb-28 sm:pt-40 lg:px-8 lg:pb-36 lg:pt-44">
         <div className="max-w-xl animate-fade-up">
           <div className="flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center rounded-full bg-green/15 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-green">
