@@ -30,8 +30,8 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
-        <header className="mx-auto max-w-6xl overflow-visible rounded-full border border-white/20 bg-charcoal/45 shadow-xl shadow-charcoal/25 backdrop-blur-2xl">
+      <div className="fixed inset-x-0 top-0 z-50 px-2 pt-2 sm:px-3 sm:pt-3">
+        <header className="mx-auto max-w-7xl overflow-visible rounded-full border border-white/20 bg-charcoal/25 shadow-xl shadow-charcoal/20 backdrop-blur-2xl">
           <div className="flex h-16 items-center justify-between gap-3 px-4 sm:h-20 sm:px-6">
             <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2" aria-label="Blend N Sizzle home">
               <Image
@@ -78,7 +78,7 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
 
               <button
                 type="button"
-                className="focus-ring flex h-11 w-11 items-center justify-center rounded-full text-cream transition-colors hover:bg-white/10"
+                className="focus-ring flex h-11 w-11 items-center justify-center rounded-full text-cream transition-colors hover:bg-white/10 lg:hidden"
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
                 aria-controls="mobile-nav-drawer"
