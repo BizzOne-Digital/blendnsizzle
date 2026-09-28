@@ -116,7 +116,7 @@ export default function ContactForm() {
             type="tel"
             maxLength={40}
             className="focus-ring w-full rounded-xl border border-beige bg-white px-4 py-3 text-charcoal placeholder:text-charcoal/35"
-            placeholder="343-989-0837"
+            placeholder="(000) 000-0000"
           />
         </div>
         <div>

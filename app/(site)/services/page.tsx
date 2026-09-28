@@ -92,8 +92,9 @@ export default async function ServicesPage() {
     <>
       <section className="bg-cream/60 py-16 sm:py-24">
         <div className="mx-auto max-w-4xl px-5 text-center lg:px-8">
-          <h1 className="font-heading text-4xl font-extrabold leading-tight text-charcoal sm:text-5xl">
-            Services Built for Cravings and Goals
+          <span className="text-xs font-bold uppercase tracking-widest text-orange-deep">Services</span>
+          <h1 className="mt-4 font-heading text-4xl font-extrabold leading-tight text-charcoal sm:text-5xl">
+            Built for Cravings and Goals
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-charcoal/70">
             From premium coffee to macro-conscious meals, everything we make is designed to
@@ -140,11 +141,9 @@ export default async function ServicesPage() {
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-green/10 text-green-deep">
                   <ChefHat size={22} aria-hidden="true" />
                 </span>
-                <h3 className="mt-4 font-heading text-lg font-bold text-charcoal">
-                  Catering / Meal Options
-                </h3>
+                <h3 className="mt-4 font-heading text-lg font-bold text-charcoal">Catering</h3>
                 <p className="mt-2 text-sm leading-relaxed text-charcoal/65">
-                  Goal-friendly catering and meal prep options for your next event.
+                  Catering available for small and big parties — live catering also available.
                 </p>
                 <Link
                   href="/contact"

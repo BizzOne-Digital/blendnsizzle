@@ -45,7 +45,7 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
               width={1666}
               height={340}
               priority
-              className="h-4 w-auto min-w-0 object-contain sm:h-6"
+              className="h-5 w-auto min-w-0 object-contain sm:h-8"
             />
           </Link>
 

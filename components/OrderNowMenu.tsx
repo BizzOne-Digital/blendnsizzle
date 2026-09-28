@@ -1,8 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ExternalLink } from "lucide-react";
+import { ChevronDown, ExternalLink, Phone, MessageCircle } from "lucide-react";
 import type { ISiteSettings } from "@/models/SiteSettings";
+
+function toWhatsAppLink(phone: string): string {
+  const digits = phone.replace(/\D/g, "");
+  const withCountryCode = digits.length === 10 ? `1${digits}` : digits;
+  return `https://wa.me/${withCountryCode}`;
+}
 
 export default function OrderNowMenu({
   settings,
@@ -24,7 +30,7 @@ export default function OrderNowMenu({
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const options = [
+  const deliveryOptions = [
     { name: "Uber Eats", url: settings.uberEatsUrl },
     { name: "DoorDash", url: settings.doorDashUrl },
   ];
@@ -45,9 +51,9 @@ export default function OrderNowMenu({
       {open && (
         <div
           role="menu"
-          className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-2xl border border-beige bg-white shadow-lg"
+          className="absolute right-0 z-50 mt-2 w-60 overflow-hidden rounded-2xl border border-beige bg-white shadow-lg"
         >
-          {options.map((option) => {
+          {deliveryOptions.map((option) => {
             const disabled = !option.url;
             return disabled ? (
               <div
@@ -75,6 +81,34 @@ export default function OrderNowMenu({
               </a>
             );
           })}
+
+          {settings.phone && (
+            <>
+              <div className="border-t border-beige px-5 pb-1 pt-3 text-xs font-bold uppercase tracking-wide text-charcoal/40">
+                Pickup Order
+              </div>
+              <a
+                role="menuitem"
+                href={`tel:${settings.phone}`}
+                className="focus-ring flex items-center justify-between px-5 py-3 text-charcoal transition-colors hover:bg-cream"
+                onClick={() => setOpen(false)}
+              >
+                <span>Call to Order</span>
+                <Phone size={16} />
+              </a>
+              <a
+                role="menuitem"
+                href={toWhatsAppLink(settings.phone)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="focus-ring flex items-center justify-between px-5 py-3 text-charcoal transition-colors hover:bg-cream"
+                onClick={() => setOpen(false)}
+              >
+                <span>WhatsApp to Order</span>
+                <MessageCircle size={16} />
+              </a>
+            </>
+          )}
         </div>
       )}
     </div>

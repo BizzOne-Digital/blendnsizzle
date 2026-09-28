@@ -27,7 +27,7 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
     businessName: { type: String, default: "Blend N Sizzle" },
     tagline: { type: String, default: "Made for Cravings. Built for Goals." },
     email: { type: String, default: "blendnsizzle@gmail.com" },
-    phone: { type: String, default: "343-989-0837" },
+    phone: { type: String, default: "613-970-6665" },
     address: { type: String, default: "31 Wilkins St, Belleville, ON K8P 1P2" },
     instagramUrl: { type: String, default: "" },
     facebookUrl: { type: String, default: "" },
