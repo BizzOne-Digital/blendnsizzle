@@ -72,12 +72,12 @@ export default function MenuItemCard({ item }: { item: PlainMenuItem }) {
             ))}
           </div>
         )}
-        {nutritionEntries.length > 0 && (
-          <details className="group/details mt-4 border-t border-beige pt-3">
-            <summary className="focus-ring flex cursor-pointer list-none items-center justify-between text-xs font-semibold text-charcoal/60 hover:text-orange-deep">
-              Nutrition Info
-              <ChevronDown size={14} className="transition-transform group-open/details:rotate-180" />
-            </summary>
+        <details className="group/details mt-4 border-t border-beige pt-3">
+          <summary className="focus-ring flex cursor-pointer list-none items-center justify-between text-xs font-semibold text-charcoal/60 hover:text-orange-deep">
+            Nutrition Info
+            <ChevronDown size={14} className="transition-transform group-open/details:rotate-180" />
+          </summary>
+          {nutritionEntries.length > 0 ? (
             <dl className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-5">
               {nutritionEntries.map((field) => (
                 <div key={field.key} className="text-center">
@@ -91,8 +91,10 @@ export default function MenuItemCard({ item }: { item: PlainMenuItem }) {
                 </div>
               ))}
             </dl>
-          </details>
-        )}
+          ) : (
+            <p className="mt-3 text-xs text-charcoal/45">Nutrition info coming soon for this item.</p>
+          )}
+        </details>
       </div>
     </div>
   );
