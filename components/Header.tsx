@@ -33,22 +33,14 @@ export default function Header({ settings }: { settings: ISiteSettings }) {
       <div className="fixed inset-x-0 top-0 z-50 px-2 pt-2 sm:px-3 sm:pt-3">
         <header className="mx-auto max-w-7xl overflow-visible rounded-full border border-white/20 bg-charcoal/25 shadow-xl shadow-charcoal/20 backdrop-blur-2xl">
           <div className="flex h-16 items-center justify-between gap-3 px-4 sm:h-20 sm:px-6">
-            <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2" aria-label="Blend N Sizzle home">
+            <Link href="/" className="flex min-w-0 shrink-0 items-center" aria-label="Blend N Sizzle home">
               <Image
                 src={settings.logoUrl ? getSafeImageUrl(settings.logoUrl) : "/logo.png"}
                 alt="Blend N Sizzle"
                 width={140}
                 height={140}
                 priority
-                className="h-10 w-10 shrink-0 object-contain sm:h-14 sm:w-14"
-              />
-              <Image
-                src="/logo2.png"
-                alt="Blend N Sizzle"
-                width={1666}
-                height={340}
-                priority
-                className="h-4 w-auto min-w-0 object-contain sm:h-7"
+                className="h-12 w-12 shrink-0 object-contain sm:h-16 sm:w-16"
               />
             </Link>
 
