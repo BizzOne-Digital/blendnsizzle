@@ -135,26 +135,40 @@ export default async function ServicesPage() {
             </div>
           ))}
 
-          {settings.cateringEnabled && (
-            <div className="overflow-hidden rounded-3xl border border-beige bg-white shadow-sm transition-shadow hover:shadow-lg">
-              <div className="p-6">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-green/10 text-green-deep">
+        </div>
+
+        {settings.cateringEnabled && (
+          <div className="mt-8 overflow-hidden rounded-3xl bg-beige shadow-sm">
+            <div className="grid lg:grid-cols-2">
+              <div className="relative aspect-[16/9] w-full lg:aspect-auto lg:min-h-[320px]">
+                <Image
+                  src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=80"
+                  alt="Catering spread for a party"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-12 lg:py-14">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-green/15 text-green-deep">
                   <ChefHat size={22} aria-hidden="true" />
                 </span>
-                <h3 className="mt-4 font-heading text-lg font-bold text-charcoal">Catering</h3>
-                <p className="mt-2 text-sm leading-relaxed text-charcoal/65">
+                <h3 className="mt-4 font-heading text-2xl font-bold text-charcoal sm:text-3xl">
+                  Catering
+                </h3>
+                <p className="mt-3 max-w-md text-charcoal/70">
                   Catering available for small and big parties — live catering also available.
                 </p>
                 <Link
                   href="/contact"
-                  className="focus-ring mt-4 inline-block text-sm font-semibold text-orange-deep hover:underline"
+                  className="focus-ring mt-6 inline-flex w-fit items-center rounded-full bg-espresso px-6 py-3.5 font-semibold text-cream transition-transform hover:translate-x-0.5"
                 >
                   Contact Us
                 </Link>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </section>
 
       <section className="bg-espresso py-16 lg:py-24">
