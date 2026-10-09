@@ -54,22 +54,24 @@ export default async function PricingPage() {
           </p>
 
           {hasAnyItems && (
-            <div className="mx-auto mt-8 inline-flex flex-wrap items-center justify-center gap-x-5 gap-y-2 rounded-full border border-beige bg-white px-6 py-3 text-xs font-semibold text-charcoal/70">
-              <span>
-                <span className="text-orange-deep">Sip</span> = 12oz
-              </span>
-              <span className="text-beige">·</span>
-              <span>
-                <span className="text-orange-deep">Pour</span> = 16oz
-              </span>
-              <span className="text-beige">·</span>
-              <span>
-                <span className="text-orange-deep">House</span> = 20oz
-              </span>
-              <span className="text-beige">·</span>
-              <span>
-                <span className="text-orange-deep">Big House</span> = 24oz
-              </span>
+            <div className="mx-auto mt-8 w-fit max-w-full rounded-2xl border border-beige bg-white px-6 py-4 text-xs font-semibold text-charcoal/70 sm:rounded-full sm:px-8 sm:py-3">
+              <div className="grid grid-cols-2 place-items-center gap-x-6 gap-y-2 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-5 sm:gap-y-0">
+                <span>
+                  <span className="text-orange-deep">Sip</span> = 10oz
+                </span>
+                <span className="hidden sm:inline text-beige">·</span>
+                <span>
+                  <span className="text-orange-deep">Pour</span> = 12oz
+                </span>
+                <span className="hidden sm:inline text-beige">·</span>
+                <span>
+                  <span className="text-orange-deep">House</span> = 16oz
+                </span>
+                <span className="hidden sm:inline text-beige">·</span>
+                <span>
+                  <span className="text-orange-deep">Big House</span> = 20oz
+                </span>
+              </div>
             </div>
           )}
         </div>
