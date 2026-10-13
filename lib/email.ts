@@ -21,16 +21,23 @@ export async function sendContactNotification(data: {
   subject: string;
   message: string;
 }): Promise<void> {
+  console.log("[email] sendContactNotification called", {
+    smtpHost: process.env.SMTP_HOST,
+    smtpPort: process.env.SMTP_PORT,
+    smtpUserSet: Boolean(process.env.SMTP_USER),
+    smtpPassSet: Boolean(process.env.SMTP_PASS),
+  });
+
   const transporter = getTransporter();
   if (!transporter) {
-    console.warn("SMTP not configured — skipping contact notification email");
+    console.warn("[email] SMTP not configured (missing SMTP_USER/SMTP_PASS) — skipping notification email");
     return;
   }
 
   const to = process.env.SMTP_USER;
 
   try {
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Blend N Sizzle Website" <${process.env.SMTP_USER}>`,
       to,
       replyTo: data.email,
@@ -46,7 +53,8 @@ export async function sendContactNotification(data: {
         .filter(Boolean)
         .join("\n"),
     });
+    console.log("[email] Contact notification sent successfully", { messageId: info.messageId, to });
   } catch (error) {
-    console.error("Failed to send contact notification email:", error);
+    console.error("[email] Failed to send contact notification email:", error);
   }
 }
