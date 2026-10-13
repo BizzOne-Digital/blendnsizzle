@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import ContactMessage from "@/models/ContactMessage";
 import { contactFormSchema } from "@/lib/validations";
+import { sendContactNotification } from "@/lib/email";
 
 export const runtime = "nodejs";
 
@@ -25,6 +26,15 @@ export async function POST(request: NextRequest) {
       name: parsed.data.name,
       email: parsed.data.email,
       phone: parsed.data.phone || "",
+      subject: parsed.data.subject,
+      message: parsed.data.message,
+    });
+
+    // Best-effort notification — never let an email failure fail the submission.
+    await sendContactNotification({
+      name: parsed.data.name,
+      email: parsed.data.email,
+      phone: parsed.data.phone,
       subject: parsed.data.subject,
       message: parsed.data.message,
     });
