@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Leaf, Dumbbell, Sparkles, Droplet } from "lucide-react";
 import type { ISiteSettings } from "@/models/SiteSettings";
 import type { HomeContent } from "@/lib/page-content";
+import OrderNowMenu from "@/components/OrderNowMenu";
 
 const BENEFITS = [
   { label: "Better Ingredients", icon: Leaf },
@@ -55,9 +56,7 @@ export default function Hero({ settings, content }: { settings: ISiteSettings; c
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-cream/80">{content.heroSubtitle}</p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <span className="focus-ring inline-flex items-center justify-center rounded-full bg-orange px-7 py-4 text-center font-semibold text-white shadow-sm">
-              {settings.openingStatus || "Coming Soon in Your City"}
-            </span>
+            <OrderNowMenu settings={settings} />
             <Link
               href="/pricing"
               className="focus-ring inline-flex items-center justify-center rounded-full border-2 border-cream/40 bg-white/10 px-7 py-4 text-center font-semibold text-cream backdrop-blur-sm transition-colors hover:border-cream hover:bg-white/20"
