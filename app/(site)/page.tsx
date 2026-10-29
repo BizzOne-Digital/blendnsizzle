@@ -5,6 +5,7 @@ import FeatureCards from "@/components/home/FeatureCards";
 import AboutPreview from "@/components/home/AboutPreview";
 import MenuPreview from "@/components/home/MenuPreview";
 import ComingSoonBanner from "@/components/home/ComingSoonBanner";
+import PromoBanner from "@/components/home/PromoBanner";
 import AudienceSection from "@/components/home/AudienceSection";
 import LocationSection from "@/components/LocationSection";
 
@@ -21,6 +22,7 @@ export default async function HomePage() {
       <AboutPreview content={content} />
       <MenuPreview />
       <ComingSoonBanner settings={settings} content={content} />
+      <PromoBanner />
       <AudienceSection />
       <LocationSection settings={settings} />
     </>
